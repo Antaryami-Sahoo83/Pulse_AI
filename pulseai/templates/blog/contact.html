@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+Contact 
+{% endblock %}
+
+
+<!DOCTYPE html>
+{% comment %} 
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+</head>
+<body> 
+{% endcomment %}
+
+{% block content %}    
+
+<h1>Contact</h1>
+<h3>Mobile: {{mob}}</h3>
+<h3>Email: {{email}}</h3>
+{% if a > b %}
+      <p>{{a}} is greater</p>
+{% elif a is b %}    
+      <p>Both are equal</p>
+{% else %}  
+      <p>{{b}} is greater</p>
+{% endif %}'
+
+<ul>
+{% for l in languages%}
+      <li>{{l}}</li>
+{% endfor %}
+</ul>
+<h3>{{blog.title}}</h3>
+<p>{{blog.author}}</p>
+<p>{{blog.content}}</p>
+{% for k,v in blog.items %}
+      <p>{{k}} : {{v}}</p>
+{% endfor %}    
+<table border="1" cellpadding="5">
+      <tr>
+            <th>Roll</th>
+            <th>Name</th>
+            <th>Cgpa</th>
+      </tr>
+      {% for students in students %}
+      <tr>
+            <td>{{students.roll}}</td>
+            <td>{{students.name}}</td>
+            <td>{{students.cgpa}}</td>
+      </tr>
+      {% endfor %}
+</table>
+{% endblock %}
+
+{% comment %} </body>
+</html> {% endcomment %}

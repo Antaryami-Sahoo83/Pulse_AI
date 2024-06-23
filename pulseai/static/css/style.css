@@ -1,0 +1,6 @@
+@media(max-width: 565px) {
+      .hero-text {
+            background-image: url('./../images/hero-img.jpg');
+            padding: 1rem;
+      }
+}
