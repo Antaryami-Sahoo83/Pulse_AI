@@ -1,5 +1,4 @@
-from django.urls import path
-
+from django.urls import path # type: ignore
 from blog import views
 
 urlpatterns = [
