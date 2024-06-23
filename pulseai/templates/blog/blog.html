@@ -3,52 +3,52 @@
 
 {% block content %}
 {% comment %} <div class="container"> {% endcomment %}
-    <div class="row g-2">
-        <!-- <div class="col-md-2">
-            <div class="sidebar-wrapper d-flex justify-content-between">
-                <div class="sidebar-menu p-3 d-none d-md-block" id="sidebar-menu">
-                    <ul class="list-unstyled">
+      <div class="row g-2">
+            <div class="col-md-2">
+                  <div class="sidebar-wrapper d-flex justify-content-between">
+                  <div class="sidebar-menu p-3 d-none d-md-block" id="sidebar-menu">
+                        <ul class="list-unstyled">
+                              <li class="py-2">
+                              <a href="{% url 'blogs' %}" class="text-decoration-none">All</a>
+                              </li>
+                        {% for c in categories %}
                         <li class="py-2">
-                            <a href="{% url "blogs" %}" class="text-decoration-none">All</a>
+                              <a href="{% url 'blog_cat' c.id %}"class="text-decoration-none">{{c}}</a>
                         </li>
-                    {% for c in categories %}
-                    <li class="py-2">
-                        <a href="{% url "blog_cat" c.id %}"class="text-decoration-none">{{c}}</a>
-                    </li>
-                    {% endfor %}
-                    </ul>
-                </div>
-                <div class="">
-                    <button class="btn btn-sm btn-light fw-bold d-block d-md-none" id="sidebar-toggler">=</button>
-                </div>
+                        {% endfor %}
+                        </ul>
+                  </div>
+                  <div class="">
+                        <button class="btn btn-sm btn-light fw-bold d-block d-md-none" id="sidebar-toggler">=</button>
+                  </div>
             </div>
-        </div> -->
-        <div class="col-md-8">
+            </div>
+            <div class="col-md-8">
             {% if blogs|length is 0 %}
-                <h3 class="text-center my-3">No blogs available</h3>
+                  <h3 class="text-center my-3">No blogs available</h3>
             {% endif %}
             {% for blog in blogs %}
-            <div class="card my-2">
-                <div class="card-body">
-                    <div class="row g-2">
-                        <div class="col-md-4">
-                            <img src="{{blog.primary_photo.url}}" class="img-fluid h-100">
+                  <div class="card my-2">
+                        <div class="card-body">
+                              <div class="row g-2">
+                              <div class="col-md-4">
+                                    <img src="{{blog.primary_photo.url}}" class="img-fluid h-100">
+                              </div>
+                              <div class="col-md-8">
+                                    <h3>{{blog.title}}</h3>
+                                    <p class="text-secondary">{{blog.category}}</p>
+                                    <p>{{blog.content|safe|truncatechars_html:"100"}}</p>
+                                    <a href="{% url 'blog' blog.id %}" class="btn btn-sm btn-outline-dark rounded-0">Read More</a>
+                              </div>
                         </div>
-                        <div class="col-md-8">
-                            <h3>{{blog.title}}</h3>
-                            <p class="text-secondary">{{blog.category}}</p>
-                            <p>{{blog.content|safe|truncatechars_html:"100"}}</p>
-                            <a href="" class="btn btn-sm btn-outline-dark rounded-0">Read More</a>
-                        </div>
-                    </div>
-                </div>
+                  </div>
             </div>
             {% endfor %}
-        </div>
-    </div>
+      </div>
+</div>
 {% comment %} </div> {% endcomment %}
 {% endblock %}
 
 {% block javascript %}
-    <script src="{% static "js/sidebar.js" %}"></script>
+      <script src="{% static 'js/sidebar.js' %}"></script>
 {% endblock %}

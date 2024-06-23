@@ -4,3 +4,8 @@
             padding: 1rem;
       }
 }
+
+blog-details img {
+      display: block;
+      margin: auto;
+}

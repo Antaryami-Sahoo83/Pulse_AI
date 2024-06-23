@@ -37,6 +37,9 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'contact' %}">Contact</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'blogs' %}">Blogs</a>
+              </li>
           </ul>
         </div>
       </div>
@@ -46,5 +49,6 @@
 
     <footer class="bg-light py-5 text-center mt-3">&copy; 2024|PulseAI</footer>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    {% block javascript %}{% endblock %}
   </body>
 </html>

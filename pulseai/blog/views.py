@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse # type: ignore
+from django.shortcuts import render, HttpResponse,get_object_or_404 # type: ignore
 from blog.models import Blog, BlogCategory
 # Create your views here.
 def index(request):
@@ -38,19 +38,29 @@ def contact(request):
       return render(request,'blog/contact.html',context)
 
 
-def all_blogs(request):
+def all_blogs(request, cid=0):
       blogs = Blog.objects.all()
+      blogs = Blog.objects.filter(publish=True).order_by('-update_at')
+      if cid == 0:
+            blogs = Blog.objects.filter(publish=True).order_by('-update_at')
+      else:
+            blogs = Blog.objects.filter(publish=True, category=cid).order_by('-update_at')
+      categories = BlogCategory.objects.all().order_by('category')
       context = {
-		'blogs': blogs
-	} 
+            'blogs': blogs,
+            'categories' : categories
+      }
       return render(request, 'blog/blog.html', context)
-      # if cid == 0:
-      #       blogs = Blog.objects.filter(publish=True).order_by('-update_at')
-      # else:
-      #       blogs = Blog.objects.filter(publish=True, category=cid).order_by('-update_at')
-      # categories = BlogCategory.objects.all().order_by('category')
+
+def blog_details(request, bid):
+      # blog = Blog.objects.filter(id=bid)
       # context = {
-      #       'blogs': blogs,
-      #       'categories' : categories
-      # }
-      # return render(request, 'blog/blog.html', context)
+	# 	'blog':blog[0]
+	# }
+
+      # blog = Blog.objects.get(id=bid)
+      blog = get_object_or_404(Blog, pk=bid)
+      context = {
+            'blog': blog
+      }
+      return render(request, 'blog/details.html', context)
