@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse # type: ignore
-
+from blog.models import Blog, BlogCategory
 # Create your views here.
 def index(request):
       # return HttpResponse("Hello World!!!")
@@ -36,3 +36,21 @@ def contact(request):
             'students':students,
       }
       return render(request,'blog/contact.html',context)
+
+
+def all_blogs(request):
+      blogs = Blog.objects.all()
+      context = {
+		'blogs': blogs
+	} 
+      return render(request, 'blog/blog.html', context)
+      # if cid == 0:
+      #       blogs = Blog.objects.filter(publish=True).order_by('-update_at')
+      # else:
+      #       blogs = Blog.objects.filter(publish=True, category=cid).order_by('-update_at')
+      # categories = BlogCategory.objects.all().order_by('category')
+      # context = {
+      #       'blogs': blogs,
+      #       'categories' : categories
+      # }
+      # return render(request, 'blog/blog.html', context)
