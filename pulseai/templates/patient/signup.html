@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row my-3">
+      <div class="col-md-6 mx-auto">
+            <h3 class="text-center mb-2">Sign Up</h3>
+            {% for m in messages %}
+                  <p class={{m.tags}}>{{m}}</p>
+            {% endfor %}
+            <form action="{% url 'signup' %}" method="post">
+                  {% csrf_token %}
+                  <input type="text" class="form-control rounded-0 mb-2" name="f_name" placeholder="First Name" required>
+                  <input type="text" class="form-control rounded-0 mb-2" name="l_name" placeholder="Last Name" required>
+                  <input type="text" class="form-control rounded-0 mb-2" name="u_name" placeholder="Username" required>
+                  <input type="email" class="form-control rounded-0 mb-2" name="email" placeholder="Email" required>
+                  <input type="password" class="form-control rounded-0 mb-2" name="pass" placeholder="Password" required>
+                  <input type="password" class="form-control rounded-0 mb-2" name="pass2" placeholder="Confirm Password" required>
+                  <input type="submit" class="btn btn-dark w-100 rounded-0 mt-2" value="Register">
+            </form>
+      </div>
+</div>
+{% endblock %}
