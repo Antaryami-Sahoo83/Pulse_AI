@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+      <div class="container my-3">
+            <div class="row">
+                  <div class="col-md-6 mx-auto">
+                  <h3 class="text-center mb-4">Take an AI Driven Test</h3>
+                  <div>
+                        <form action="{% url 'take_a_test' %}" method="post">
+                              {% csrf_token %}
+                              {{form.as_p}}
+                              <input type="submit" value="Submit" class="btn btn-dark rounded-0 w-100 mt-3">
+                        </form>
+                  </div>
+                  </div>
+            </div>
+      </div>
+{% endblock  %}
+
+{% block javascript %}
+<script src="{% static 'js/take-a-test.js' %}"></script>
+{% endblock %}

@@ -46,7 +46,7 @@
                   Welcome, {{user.username}}
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Take a test</a></li>
+                  <li><a class="dropdown-item" href="{% url 'take_a_test' %}">Take a test</a></li>
                   <li><a class="dropdown-item" href="#">Profie</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="{% url 'signout' %}">Logout</a></li>
