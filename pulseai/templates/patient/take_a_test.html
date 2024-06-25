@@ -5,19 +5,40 @@
       <div class="container my-3">
             <div class="row">
                   <div class="col-md-6 mx-auto">
-                  <h3 class="text-center mb-4">Take an AI Driven Test</h3>
-                  <div>
-                        <form action="{% url 'take_a_test' %}" method="post">
-                              {% csrf_token %}
-                              {{form.as_p}}
-                              <input type="submit" value="Submit" class="btn btn-dark rounded-0 w-100 mt-3">
-                        </form>
+                        <div class="mb-4 text-center">
+                              <h3 class="text-center">Take an AI Driven Test</h3>
+                              <p>You are allowed to take one test per day.</p>
+                        </div>
+                        <!-- {% if error %}
+                              <p class="text-center text-danger">Your Quota for today is over</p>
+                        {% else %} -->
+                        <div>
+                              <form action="{% url 'take_a_test' %}" method="post">
+                                    {% csrf_token %}
+                                    <table>
+                                    {{form.as_table}}
+                                    </table>
+                                    <input type="submit" value="Submit" class="btn btn-dark rounded-0 w-100 mt-3">
+                              </form>
+                        </div>
+                  </div>
+                  <!-- {% endif %} -->
+                  {% if prediction %}
+                  <div class="col-md-6 py-5">
+                  <div class="{% if prediction.class == 'Yes' %} text-danger {% else %} text-success {% endif %}">
+                        <h1>Heart Disease: {{prediction.class}}</h1>
+                        <h1>Probability of having Heart Disease: {{prediction.probability}}</h1>
+                  </div>
+                  <p class="text-muted">This is an AI generated response and can be wrong. Please consult with a doctor for accurate diagnosis.</p>
+                  <div class=" my-3">
+                        <a href="" class="btn btn-primary">Book an Appointment</a>
                   </div>
                   </div>
+                  {% endif %}
             </div>
       </div>
 {% endblock  %}
 
 {% block javascript %}
-<script src="{% static 'js/take-a-test.js' %}"></script>
+<script src="{% static "js/take-a-test.js" %}"></script>
 {% endblock %}

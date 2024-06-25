@@ -2,11 +2,16 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+# from django.utils import timezone
+# from datetime import datetime
 
 # from django.contrib.auth.forms import UserCreationForm
 # from patient.form import BlogForm, CustomUserCreationForm
 
+from patient.models import HeartVital
 from patient.form import HeartVitalForm
+from patient.predict import predict_heart_disease
 
 def form_demo(request):
       # form = BlogForm()
@@ -58,9 +63,37 @@ def signout(request):
       logout(request)
       return redirect('home')
 
+@login_required(login_url='signin')
 def take_a_test(request):
+      context = {}
+      # today = timezone.now().date()
+      # today = datetime.today()
+      # is_exists = HeartVital.objects.filter(user=request.user, created_at=today).count()
+      # if( is_exists > 0):
+      #     context["error"] = True
+
       form = HeartVitalForm()
-      context = {
-            'form' : form
-      }
+      if request.method == "POST":
+            form = HeartVitalForm(request.POST)
+            # print(form.data)
+            patient = form.save(commit=False)
+            # Prediction
+            patient_data = {}
+            for k, v in form.data.items():
+                  patient_data[k] = v
+            patient_data.pop('csrfmiddlewaretoken')
+            print(patient_data)
+            prediction = predict_heart_disease(patient_data)
+            print(prediction)
+            context['prediction'] = prediction
+
+            #save to database
+            patient.user = request.user
+            patient.heart_disease = prediction.get('class')
+            patient.prediction_probability = prediction.get('probability')
+            patient.save()
+
+      context['form'] = form
+            
+      
       return render(request, 'patient/take_a_test.html', context)
