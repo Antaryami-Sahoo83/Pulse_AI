@@ -71,7 +71,7 @@ class Appointment(models.Model):
       mobile = models.CharField(max_length=20)
       date = models.DateField()
       note = models.TextField()
-      status = models.CharField(max_length=255, choices=APPOINTMENT_STATUS_OPTION)
+      status = models.CharField(max_length=255, choices=APPOINTMENT_STATUS_OPTION, default="Booked")
 
       def __str__(self):
             return self.user.first_name+" "+self.user.last_name

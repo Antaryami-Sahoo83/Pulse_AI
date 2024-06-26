@@ -23,7 +23,7 @@ def predict_heart_disease(patient_data):
       scaled_data = scaler.transform(patient_data)
       # Peredict
       prediction = model.predict(scaled_data)
-      print(prediction)
+      #print(prediction)
       # Predict using the trained model
       prediction_probability = model.predict_proba(scaled_data)[0][1]
       # print(f'There is {prediction_probability:.0%} chance that the patient has heart disease.')

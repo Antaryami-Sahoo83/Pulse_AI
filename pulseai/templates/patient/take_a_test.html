@@ -9,9 +9,9 @@
                               <h3 class="text-center">Take an AI Driven Test</h3>
                               <p>You are allowed to take one test per day.</p>
                         </div>
-                        <!-- {% if error %}
+                        {% if error %}
                               <p class="text-center text-danger">Your Quota for today is over</p>
-                        {% else %} -->
+                        {% else %}
                         <div>
                               <form action="{% url 'take_a_test' %}" method="post">
                                     {% csrf_token %}
@@ -21,8 +21,8 @@
                                     <input type="submit" value="Submit" class="btn btn-dark rounded-0 w-100 mt-3">
                               </form>
                         </div>
+                        {% endif %}
                   </div>
-                  <!-- {% endif %} -->
                   {% if prediction %}
                   <div class="col-md-6 py-5">
                   <div class="{% if prediction.class == 'Yes' %} text-danger {% else %} text-success {% endif %}">
@@ -31,7 +31,7 @@
                   </div>
                   <p class="text-muted">This is an AI generated response and can be wrong. Please consult with a doctor for accurate diagnosis.</p>
                   <div class=" my-3">
-                        <a href="" class="btn btn-primary">Book an Appointment</a>
+                        <a href="{% url 'appointment' %}" class="btn btn-primary">Book an Appointment</a>
                   </div>
                   </div>
                   {% endif %}
