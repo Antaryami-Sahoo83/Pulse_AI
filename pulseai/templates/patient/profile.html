@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container my-3">
+      <div class="row g-2">
+            <div class="col-md-3">
+                  <div class="card rounded-0">
+                  <div class="card-body">
+                        <p class="lead fw-bold">{{user.first_name}} {{user.last_name}}</p>
+                        <p class="mb-0">Username: {{user.username}}</p>
+                        <p class="mb-0">Email: {{user.email}}</p>
+                  </div>
+                  <div class="d-flex">
+                        <a href="" class="btn btn-primary w-50 rounded-0">Change Email</a>
+                        <a href="" class="btn btn-warning w-50 rounded-0">Edit Password</a>
+                  </div>
+                  </div>
+            </div>
+            <div class="col-md-9 d-flex flex-wrap gap-2">
+                  {% for visit in visits %}
+                  <div class="card">
+                  <div class="card-header bg-dark text-white text-center">
+                        {{visit.created_at}}
+                  </div>
+                  <div class="card-body">
+                        {{visit.diagnosis|safe}}
+                  </div>
+                  </div>
+                  {% endfor %}
+            </div>
+      </div>
+      <div class="row my-2">
+            <div class="col-md-12">
+                  <div class="table-responsive">
+                  <table class="table table-striped table-bordered border-dark text-center">
+                        <thead>
+                              <tr>
+                              <th colspan="12"></th>
+                              <th colspan="2">AI Predictions</th>
+                              </tr>
+                              <tr>
+                              <th>Date</th>
+                              <th>Age</th>
+                              <th>Gender</th>
+                              <th>Chest Pain Type</th>
+                              <th>Resting Blood Presure</th>
+                              <th>Cholesterol</th>
+                              <th>Fasting Blood Suger</th>
+                              <th>Resting ECG</th>
+                              <th>Max Heart Rate</th>
+                              <th>Exercise Angina</th>
+                              <th>Oldpeak</th>
+                              <th>ST_Slope</th>
+                              <th>Heart Disease</th>
+                              <th>Probability</th>
+                              </tr>
+                        </thead>
+                        <tbody>
+                              {% for hv in heart_vitals  %}
+                              <tr>
+                              <td>{{hv.created_at}}</td>
+                              <td>{{hv.Age}}</td>
+                              <td>{{hv.Sex}}</td>
+                              <td>{{hv.ChestPainType}}</td>
+                              <td>{{hv.RestingBP}}</td>
+                              <td>{{hv.Cholesterol}}</td>
+                              <td>{{hv.FastingBS}}</td>
+                              <td>{{hv.RestingECG}}</td>
+                              <td>{{hv.MaxHR}}</td>
+                              <td>{{hv.ExerciseAngina}}</td>
+                              <td>{{hv.Oldpeak}}</td>
+                              <td>{{hv.ST_Slope}}</td>
+                              <td>{{hv.heart_disease}}</td>
+                              <td>{{hv.prediction_probability}}</td>
+                              </tr>
+                              {% endfor %}
+                        </tbody>
+                  </table>
+                  </div>
+            </div>
+      </div>
+</div>
+{% endblock %}
+

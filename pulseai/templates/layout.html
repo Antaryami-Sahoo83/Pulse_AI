@@ -13,7 +13,7 @@
   <body>
     <nav class="navbar navbar-expand-lg mb-1 shadow-sm">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{% url 'home' %}">
           <h3>PulseAI</h3>
         </a>
         <button
@@ -51,7 +51,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'take_a_test' %}">Take a test</a></li>
-                  <li><a class="dropdown-item" href="#">Profie</a></li>
+                  <li><a class="dropdown-item" href="{% url 'profile' %}">Profie</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="{% url 'signout' %}">Logout</a></li>
                 </ul>

@@ -1,5 +1,5 @@
 {% extends "layout.html" %} {% load static %} {% block content %}
-<div class="container">
+<div class="container my-5">
   <div class="row g-2">
     <div class="col-md-7 hero-text">
       <h1 class="display-5 fw-semibold mb-1">
@@ -16,10 +16,10 @@
         <li>Direct Access to Cardiologists</li>
         <li>Manage Your Health</li>
       </ul>
-      <a href="" class="btn btn-outline-dark rounded-0">Take a test</a>
+      <a href="{% url 'take_a_test' %}" class="btn btn-outline-dark rounded-0">Take a test</a>
     </div>
     <div class="col-md-5 d-none d-md-block">
-      <img src="{% static "images/hero-img.jpg" %}" class="img-fluid h-100" />
+      <img src="{% static 'images/hero-img.jpg' %}" class="img-fluid h-100" />
     </div>
   </div>
 </div>

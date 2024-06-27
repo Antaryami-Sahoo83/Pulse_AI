@@ -76,3 +76,22 @@ class Appointment(models.Model):
       def __str__(self):
             return self.user.first_name+" "+self.user.last_name
 
+class Patient(models.Model):
+	patient = models.OneToOneField(User, on_delete=models.CASCADE)
+	date_of_birth = models.DateField()
+	background_history = models.TextField()
+	
+	def __str__(self):
+		return self.patient.username
+
+	def full_name(self):
+		return f"{self.patient.first_name} {self.patient.last_name}"
+
+class Visit(models.Model):
+      patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+      created_at = models.DateTimeField(auto_now_add=True)
+      diagnosis = models.TextField()
+
+      def __str__(self):
+            return f"{self.created_at}"
+
