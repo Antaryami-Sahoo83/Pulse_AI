@@ -15,31 +15,31 @@
             </div>
       {% endif %}
 
-<div class="row g-3">
-      <div class="col-md-4 mx-auto">
-            <div class="mb-4 text-center">
-                  <h3>Update An Appointment</h3>
-                  <p>1 Appointment/Person/Day</p>
+      <div class="row g-3">
+            <div class="col-md-4 mx-auto">
+                  <div class="mb-4 text-center">
+                        <h3>Update An Appointment</h3>
+                        <p>1 Appointment/Person/Day</p>
+                  </div>
+                  <form action="{% url 'update_appointment' appointment.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="mb-2">
+                        <label>Mobile</label>
+                        <input type="text" name="mobile" class="form-control" value="{{appointment.mobile}}" required>
+                        </div>
+                        <div class="mb-2">
+                        <label>Date</label>
+                        <input type="date" name="date" class="form-control" value="{{appointment.date|date:"Y-m-d"}}" required>
+                        </div>
+                        <div class="mb-2">
+                        <label>Purpose of Appointment</label>
+                        <textarea rows="5" class="form-control" name="note" required>{{appointment.note}}</textarea>
+                        </div>
+                        <div class="mt-2">
+                        <input type="submit" value="Update" class="btn btn-dark w-100">
+                        </div>
+                  </form>
             </div>
-            <form action="{% url 'update_appointment' appointment.id %}" method="post">
-                  {% csrf_token %}
-                  <div class="mb-2">
-                  <label>Mobile</label>
-                  <input type="text" name="mobile" class="form-control" value="{{appointment.mobile}}" required>
-                  </div>
-                  <div class="mb-2">
-                  <label>Date</label>
-                  <input type="date" name="date" class="form-control" value="{{appointment.date|date:"Y-m-d"}}" required>
-                  </div>
-                  <div class="mb-2">
-                  <label>Purpose of Appointment</label>
-                  <textarea rows="5" class="form-control" name="note" required>{{appointment.note}}</textarea>
-                  </div>
-                  <div class="mt-2">
-                  <input type="submit" value="Update" class="btn btn-dark w-100">
-                  </div>
-            </form>
       </div>
-</div>
 </div>
 {% endblock %}

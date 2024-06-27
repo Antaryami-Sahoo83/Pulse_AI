@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from datetime import datetime, timedelta
@@ -12,7 +12,7 @@ import re # For Mobile Number
 # from patient.form import BlogForm, CustomUserCreationForm
 
 from patient.models import HeartVital, Appointment, Visit, Patient
-from patient.form import HeartVitalForm
+from patient.form import HeartVitalForm, EmailChangeForm, CustomPasswordChangeForm
 from patient.predict import predict_heart_disease
 
 def form_demo(request):
@@ -116,7 +116,7 @@ def take_a_test(request):
       return render(request, 'patient/take_a_test.html', context)
 
 
-login_required(login_url='signin')
+@login_required(login_url='signin')
 def appointment(request):
       if request.method == "POST":
             mobile = request.POST.get('mobile')
@@ -187,6 +187,7 @@ def delete_appointment(request, aid):
 
       return redirect('appointment')
 
+@login_required(login_url='signin')
 def profile(request):
       heart_vitals = HeartVital.objects.filter(user=request.user)
       visits = {}
@@ -199,3 +200,45 @@ def profile(request):
             'visits': visits
       }
       return render(request, 'patient/profile.html', context)
+
+
+@login_required
+def change_email(request):
+      if request.method == 'POST':
+            form = EmailChangeForm(request.POST, instance=request.user)
+            if form.is_valid():
+                  new_email = form.cleaned_data['email']
+                  if User.objects.exclude(id=request.user.id).filter(email=new_email).exists():
+                        messages.error(request, 'This email is already in use. Please choose a different one.')
+                  else:
+                        form.save()
+                        messages.success(request, 'Your email has been updated!')
+                        return redirect('profile')
+      else:
+            form = EmailChangeForm(instance=request.user)
+      return render(request, 'patient/change_email.html', {'form': form})
+
+@login_required
+def change_password(request):
+      if request.method == 'POST':
+            form = CustomPasswordChangeForm(request.user, request.POST)
+            old_password = request.POST.get("old_password")
+            new_password1 = request.POST.get("new_password1")
+            new_password2 = request.POST.get("new_password2")
+
+            # Check if the old password is correct
+            if not request.user.check_password(old_password):
+                  messages.error(request, 'Incorrect old password.')
+            elif new_password1 != new_password2:
+                  messages.error(request, 'New passwords do not match!!')
+            else:
+                  # Update the user's password
+                  request.user.set_password(new_password1)
+                  request.user.save()
+                  update_session_auth_hash(request, request.user)  # Important for security
+                  messages.success(request, 'Your password has been updated!')
+                  return redirect('profile')
+      else:
+            form = CustomPasswordChangeForm(request.user)
+      
+      return render(request, 'patient/change_password.html', {'form': form})

@@ -2,6 +2,18 @@
 
 {% block content %}
 <div class="container my-3">
+      <div class="row">
+            <div class="col-md-6 mx-auto">
+                  {% if messages %}
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {% for m in messages %}
+                              <p class="{{ m.tags }} m-0">{{ m }}</p>
+                        {% endfor %}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  {% endif %}
+            </div>
+      </div>
       <div class="row g-2">
             <div class="col-md-3">
                   <div class="card rounded-0">
@@ -11,8 +23,8 @@
                         <p class="mb-0">Email: {{user.email}}</p>
                   </div>
                   <div class="d-flex">
-                        <a href="" class="btn btn-primary w-50 rounded-0">Change Email</a>
-                        <a href="" class="btn btn-warning w-50 rounded-0">Edit Password</a>
+                        <a href="{% url 'change_email' %}" class="btn btn-primary w-50 rounded-0">Change Email</a>
+                        <a href="{% url 'change_password' %}" class="btn btn-warning w-50 rounded-0">Edit Password</a>
                   </div>
                   </div>
             </div>
